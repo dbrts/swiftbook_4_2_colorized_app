@@ -11,7 +11,7 @@ struct ContentView: View {
     @State private var redSliderValue = 120.0
     @State private var greenSliderValue = 120.0
     @State private var blueSliderValue = 120.0
-    @State private var alertPresented = false
+    @FocusState var isInputActive: Bool
     
     var body: some View {
         VStack {
@@ -27,9 +27,19 @@ struct ContentView: View {
                 .padding(.bottom, 16)
             
             VStack {
-                ColorSliderView(alertPresented: $alertPresented, sliderValue: $redSliderValue, color: .red)
-                ColorSliderView(alertPresented: $alertPresented, sliderValue: $greenSliderValue, color: .green)
-                ColorSliderView(alertPresented: $alertPresented, sliderValue: $blueSliderValue, color: .blue)
+                ColorSliderView(sliderValue: $redSliderValue, color: .red)
+                ColorSliderView(sliderValue: $greenSliderValue, color: .green)
+                ColorSliderView(sliderValue: $blueSliderValue, color: .blue)
+            }
+            .focused($isInputActive)
+            .toolbar {
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+
+                    Button("Done") {
+                        isInputActive = false
+                    }
+                }
             }
             
             Spacer()
@@ -45,7 +55,7 @@ struct ContentView_Previews: PreviewProvider {
 }
 
 struct ColorSliderView: View {
-    @Binding var alertPresented: Bool
+    @State private var alertPresented = false
     @Binding var sliderValue: Double
     let color: Color
     
@@ -65,12 +75,13 @@ struct ColorSliderView: View {
     var body: some View {
         HStack{
             Text("\(Int(sliderValue))")
-                .frame(width: 40)
+                .frame(width: 40, alignment: .leading)
             Slider(value: $sliderValue, in: 0...255, step: 1)
                 .tint(color)
             TextField("\(sliderValue)", text: sliderTF)
                 .textFieldStyle(.roundedBorder)
                 .frame(width: 50)
+                .multilineTextAlignment(.trailing)
                 .keyboardType(.numberPad)
                 .alert("Wrong format", isPresented: $alertPresented, actions: {}) {
                     Text("Enter number between 0 and 255")
