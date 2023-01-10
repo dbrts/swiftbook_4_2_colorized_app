@@ -11,6 +11,7 @@ struct ContentView: View {
     @State private var redSliderValue = 120.0
     @State private var greenSliderValue = 120.0
     @State private var blueSliderValue = 120.0
+    @State private var alertPresented = false
     
     var body: some View {
         VStack {
@@ -26,9 +27,9 @@ struct ContentView: View {
                 .padding(.bottom, 16)
             
             VStack {
-                ColorSliderView(sliderValue: $redSliderValue, color: .red)
-                ColorSliderView(sliderValue: $greenSliderValue, color: .green)
-                ColorSliderView(sliderValue: $blueSliderValue, color: .blue)
+                ColorSliderView(alertPresented: $alertPresented, sliderValue: $redSliderValue, color: .red)
+                ColorSliderView(alertPresented: $alertPresented, sliderValue: $greenSliderValue, color: .green)
+                ColorSliderView(alertPresented: $alertPresented, sliderValue: $blueSliderValue, color: .blue)
             }
             
             Spacer()
@@ -44,16 +45,22 @@ struct ContentView_Previews: PreviewProvider {
 }
 
 struct ColorSliderView: View {
+    @Binding var alertPresented: Bool
     @Binding var sliderValue: Double
     let color: Color
     
     private var sliderTF: Binding<String> {
-            Binding(get: {
-                String(lround(self.sliderValue))
-            }) {
-                self.sliderValue = Double($0) ?? 0
+        Binding(get: {
+            String(lround(self.sliderValue))
+        }) {
+            guard let value = Double($0) else { alertPresented.toggle(); return }
+            if value >= 0 && value <= 255 {
+                self.sliderValue = value
+            } else {
+                alertPresented.toggle()
             }
         }
+    }
     
     var body: some View {
         HStack{
@@ -62,13 +69,12 @@ struct ColorSliderView: View {
             Slider(value: $sliderValue, in: 0...255, step: 1)
                 .tint(color)
             TextField("\(sliderValue)", text: sliderTF)
-                .frame(width: 40)
-                .padding(EdgeInsets(top: 8, leading: 12, bottom: 8, trailing: 12))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 5)
-                        .stroke(lineWidth: 1)
-                        .foregroundColor(.gray)
-                )
+                .textFieldStyle(.roundedBorder)
+                .frame(width: 50)
+                .keyboardType(.numberPad)
+                .alert("Wrong format", isPresented: $alertPresented, actions: {}) {
+                    Text("Enter number between 0 and 255")
+                }
         }
         .padding(.bottom, 8)
     }
