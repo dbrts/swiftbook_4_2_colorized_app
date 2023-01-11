@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC23E564296F33900041A845 /* ColorSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC23E563296F33900041A845 /* ColorSliderView.swift */; };
 		ACDC57BB296DE4A8006DDC70 /* swiftbook_4_2_colorized_appApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDC57BA296DE4A8006DDC70 /* swiftbook_4_2_colorized_appApp.swift */; };
 		ACDC57BD296DE4A8006DDC70 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDC57BC296DE4A8006DDC70 /* ContentView.swift */; };
 		ACDC57BF296DE4AA006DDC70 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACDC57BE296DE4AA006DDC70 /* Assets.xcassets */; };
@@ -14,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AC23E563296F33900041A845 /* ColorSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSliderView.swift; sourceTree = "<group>"; };
 		ACDC57B7296DE4A8006DDC70 /* swiftbook_4_2_colorized_app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = swiftbook_4_2_colorized_app.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACDC57BA296DE4A8006DDC70 /* swiftbook_4_2_colorized_appApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swiftbook_4_2_colorized_appApp.swift; sourceTree = "<group>"; };
 		ACDC57BC296DE4A8006DDC70 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -53,6 +55,7 @@
 			children = (
 				ACDC57BA296DE4A8006DDC70 /* swiftbook_4_2_colorized_appApp.swift */,
 				ACDC57BC296DE4A8006DDC70 /* ContentView.swift */,
+				AC23E563296F33900041A845 /* ColorSliderView.swift */,
 				ACDC57BE296DE4AA006DDC70 /* Assets.xcassets */,
 				ACDC57C0296DE4AA006DDC70 /* Preview Content */,
 			);
@@ -139,6 +142,7 @@
 			files = (
 				ACDC57BD296DE4A8006DDC70 /* ContentView.swift in Sources */,
 				ACDC57BB296DE4A8006DDC70 /* swiftbook_4_2_colorized_appApp.swift in Sources */,
+				AC23E564296F33900041A845 /* ColorSliderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

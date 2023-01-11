@@ -27,9 +27,9 @@ struct ContentView: View {
                 .padding(.bottom, 16)
             
             VStack {
-                ColorSliderView(sliderValue: $redSliderValue, color: .red)
-                ColorSliderView(sliderValue: $greenSliderValue, color: .green)
-                ColorSliderView(sliderValue: $blueSliderValue, color: .blue)
+                ColorSliderView(value: $redSliderValue, color: .red)
+                ColorSliderView(value: $greenSliderValue, color: .green)
+                ColorSliderView(value: $blueSliderValue, color: .blue)
             }
             .focused($isInputActive)
             .toolbar {
@@ -54,39 +54,4 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
-struct ColorSliderView: View {
-    @State private var alertPresented = false
-    @Binding var sliderValue: Double
-    let color: Color
-    
-    private var sliderTF: Binding<String> {
-        Binding(get: {
-            String(lround(self.sliderValue))
-        }) {
-            guard let value = Double($0) else { alertPresented.toggle(); return }
-            if value >= 0 && value <= 255 {
-                self.sliderValue = value
-            } else {
-                alertPresented.toggle()
-            }
-        }
-    }
-    
-    var body: some View {
-        HStack{
-            Text("\(Int(sliderValue))")
-                .frame(width: 40, alignment: .leading)
-            Slider(value: $sliderValue, in: 0...255, step: 1)
-                .tint(color)
-            TextField("\(sliderValue)", text: sliderTF)
-                .textFieldStyle(.roundedBorder)
-                .frame(width: 50)
-                .multilineTextAlignment(.trailing)
-                .keyboardType(.numberPad)
-                .alert("Wrong format", isPresented: $alertPresented, actions: {}) {
-                    Text("Enter number between 0 and 255")
-                }
-        }
-        .padding(.bottom, 8)
-    }
-}
+
